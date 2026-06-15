@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ur5e">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+
+    <!-- Import ur5e urdf file -->
+    <xacro:include filename="$(find warehouse_pick_place)/urdf/ur5e_gz_control.xacro" />
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="ur5e.ros2_control.xacro" />
+
+
+    <xacro:ur5e_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+
+</robot>

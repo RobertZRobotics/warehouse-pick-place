@@ -1,0 +1,26 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: warehouse_pick_place
+    relative_path: urdf/ur5e_gz_control.xacro
+    xacro_args: ur_type:=ur5e name:=ur5e
+  srdf:
+    relative_path: config/ur5e.srdf
+  package_settings:
+    author_name: Robert Z
+    author_email: "robertzokol6@gmail.com"
+    generated_timestamp: 1781469849
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
