@@ -24,14 +24,27 @@ The long-term objective of this project is to develop a warehouse pick-and-place
 * Ubuntu 24.04
 * ROS 2 Jazzy
 * Gazebo Harmonic
+* MoveIt 2
 
 ## Dependencies
 
-Clone the Universal Robots ROS 2 description package into the same workspace:
+Create a ROS 2 workspace if necessary and clone the Universal Robots ROS 2 description package:
+
+```bash
+mkdir -p ~/warehouse_ws/src
+cd ~/warehouse_ws/src
+git clone -b jazzy https://github.com/UniversalRobots/Universal_Robots_ROS2_Description.git ur_description
+cd ..
+colcon build
+```
+
+## Installation
+
+Clone this repository into the same workspace:
 
 ```bash
 cd ~/warehouse_ws/src
-git clone -b jazzy https://github.com/UniversalRobots/Universal_Robots_ROS2_Description.git ur_description
+git clone https://github.com/RobertZRobotics/warehouse-pick-place
 ```
 
 Build the workspace:
