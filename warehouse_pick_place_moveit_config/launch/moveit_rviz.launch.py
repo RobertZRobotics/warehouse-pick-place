@@ -1,4 +1,3 @@
-from launch_ros.actions import SetParameter
 from moveit_configs_utils import MoveItConfigsBuilder
 from moveit_configs_utils.launches import generate_moveit_rviz_launch
 

@@ -6,9 +6,9 @@ moveit_setup_assistant_config:
   srdf:
     relative_path: config/ur5e.srdf
   package_settings:
-    author_name: Robert Z
-    author_email: "robertzokol6@gmail.com"
-    generated_timestamp: 1781469849
+    author_name: Robert Zokol
+    author_email: robertzokol6@gmail.com
+    generated_timestamp: 1781641668
   control_xacro:
     command:
       - position

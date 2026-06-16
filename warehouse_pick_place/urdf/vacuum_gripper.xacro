@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="vacuum_gripper" params="parent">
+
+    <link name="vacuum_link">
+      <visual>
+        <geometry>
+          <cylinder radius="0.03" length="0.08"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+
+      <collision>
+        <geometry>
+          <cylinder radius="0.03" length="0.08"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <mass value="0.1"/>
+        <origin xyz="0 0 0"/>
+        <inertia
+          ixx="0.0001"
+          ixy="0"
+          ixz="0"
+          iyy="0.0001"
+          iyz="0"
+          izz="0.0001"/>
+      </inertial>
+    </link>
+
+    <joint name="vacuum_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="vacuum_link"/>
+      <origin xyz="0 0 0.025" rpy="0 0 0"/>
+    </joint>
+
+    <link name="vacuum_tcp"/>
+
+    <joint name="vacuum_tcp_joint" type="fixed">
+      <parent link="vacuum_link"/>
+      <child link="vacuum_tcp"/>
+      <origin xyz="0 0 0.04" rpy="0 0 0"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

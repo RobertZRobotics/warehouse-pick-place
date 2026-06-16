@@ -5,6 +5,7 @@
   <xacro:arg name="ur_type" default="ur5e"/>
 
   <xacro:include filename="$(find ur_description)/urdf/ur_macro.xacro"/>
+  <xacro:include filename="$(find warehouse_pick_place)/urdf/vacuum_gripper.xacro"/>
 
   <xacro:arg name="tf_prefix" default="" />
   <xacro:arg name="joint_limit_params" default="$(find ur_description)/config/$(arg ur_type)/joint_limits.yaml"/>
@@ -32,6 +33,8 @@
     force_abs_paths="$(arg force_abs_paths)">
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </xacro:ur_robot>
+
+  <xacro:vacuum_gripper parent="tool0"/>
 
   <ros2_control name="GazeboSystem" type="system">
     <hardware>
