@@ -43,37 +43,49 @@
 
     <joint name="shoulder_pan_joint">
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0</param>
+      </state_interface>
       <state_interface name="velocity"/>
     </joint>
 
     <joint name="shoulder_lift_joint">
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">-2.531</param>
+      </state_interface>
       <state_interface name="velocity"/>
     </joint>
 
     <joint name="elbow_joint">
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">2.199</param>
+      </state_interface>
       <state_interface name="velocity"/>
     </joint>
 
     <joint name="wrist_1_joint">
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">-1.571</param>
+      </state_interface>
       <state_interface name="velocity"/>
     </joint>
 
     <joint name="wrist_2_joint">
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">-1.571</param>
+      </state_interface>
       <state_interface name="velocity"/>
     </joint>
 
     <joint name="wrist_3_joint">
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0</param>
+      </state_interface>
       <state_interface name="velocity"/>
     </joint>
   </ros2_control>
@@ -82,6 +94,22 @@
     <plugin filename="libgz_ros2_control-system.so"
             name="gz_ros2_control::GazeboSimROS2ControlPlugin">
       <parameters>$(find warehouse_pick_place)/config/ur5e_controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin
+      filename="gz-sim-detachable-joint-system"
+      name="gz::sim::systems::DetachableJoint">
+
+      <parent_link>wrist_3_link</parent_link>
+      <child_model>box1</child_model>
+      <child_link>box_link</child_link>
+
+      <attach_topic>/vacuum_gripper/attach</attach_topic>
+      <detach_topic>/vacuum_gripper/detach</detach_topic>
+      <output_topic>/vacuum_gripper/state</output_topic>
+
     </plugin>
   </gazebo>
 

@@ -5,7 +5,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from launch.actions import AppendEnvironmentVariable
 from launch_ros.substitutions import FindPackageShare
-from launch.actions import TimerAction
+from launch.actions import TimerAction, ExecuteProcess
 from ament_index_python.packages import get_package_share_directory
 import os
 
@@ -132,19 +132,56 @@ def generate_launch_description():
         }.items(),
     )
 
+    spawn_box = Node(
+        package="ros_gz_sim",
+        executable="create",
+        arguments=[
+            "-name", "box1",
+            "-file", PathJoinSubstitution([FindPackageShare("warehouse_pick_place"), "models", "small_box.sdf"]),
+            "-x", "0.45",
+            "-y", "0.0",
+            "-z", "0.03",
+        ],
+        output="screen",
+    )
+
+    detach_box_initially = TimerAction(
+    period=5.0,
+    actions=[
+        ExecuteProcess(
+            cmd=[
+                "gz", "topic",
+                "-t", "/vacuum_gripper/detach",
+                "-m", "gz.msgs.Empty",
+                "-p", ""
+            ],
+            output="screen",
+        )
+    ],
+    )
+
+    attach_node = Node(
+        package="warehouse_pick_place",
+        executable="attach_box_node",
+        output="screen",
+    )
+
     return LaunchDescription([
         gz_resource_path,
         gz_sim,
         bridge,
         robot_state_publisher,
         spawn_robot,
+        spawn_box,
+        detach_box_initially,
         TimerAction(
             period=3.0,
             actions=[
                 joint_state_broadcaster_spawner,
                 arm_controller_spawner,
                 move_group,
-                rviz
+                rviz,
+                attach_node
             ],
         ),
     ])
