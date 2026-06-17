@@ -7,12 +7,15 @@ A warehouse pick-and-place simulation built using ROS 2 Jazzy, Gazebo Harmonic, 
 * UR5e manipulator simulated in Gazebo Harmonic
 * Motion planning with MoveIt 2
 * Trajectory execution through ros2_control
+* Custom vacuum gripper end effector
+* Spawnable warehouse box model
+* Vacuum attach/detach using Gazebo DetachableJoint
 * Integrated RViz and Gazebo simulation
 * Unified launch system for simulation and planning
 
 ## Project Goals
 
-The long-term objective of this project is to develop a warehouse pick-and-place system capable of:
+The long-term objective of this project is to develop an autonomous warehouse pick-and-place system capable of:
 
 * Picking boxes using a vacuum gripper
 * Detecting object locations with an overhead camera
@@ -65,17 +68,39 @@ ros2 launch warehouse_pick_place sim.launch.py
 
 This launches:
 
-* Gazebo simulation
+* Gazebo Harmonic
 * UR5e robot
+* Vacuum gripper
+* Warehouse box
 * ros2_control
 * MoveIt 2
 * RViz
+* Vacuum attach/detach interface
+
+## Vacuum Gripper Control
+
+The simulation includes a vacuum gripper with attach and detach functionality.
+
+The gripper can currently be controlled through the provided ROS service:
+
+```bash
+ros2 service call /set_box_attached std_srvs/srv/SetBool "{data: true}"
+```
+
+Attach the box.
+
+```bash
+ros2 service call /set_box_attached std_srvs/srv/SetBool "{data: false}"
+```
+
+Release the box.
 
 ## Future Development
 
-* Vacuum gripper
-* Object spawning
-* Object attachment
-* Cartesian pick-and-place motions
+* Automatic vacuum engagement
+* Hard-coded pick-and-place sequence
+* Multiple warehouse boxes
 * Overhead vision system
-* Autonomous warehouse task execution
+* Object pose estimation
+* Autonomous pick-and-place operations
+* Dynamic warehouse task generation
